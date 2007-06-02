@@ -1,0 +1,61 @@
+diff -ur -ur hildon-libs-0.14.11-o/hildon-widgets/hildon-date-editor.c hildon-libs-0.14.11/hildon-widgets/hildon-date-editor.c
+--- hildon-libs-0.14.11-o/hildon-widgets/hildon-date-editor.c	2006-11-24 02:00:27.000000000 -0700
++++ hildon-libs-0.14.11/hildon-widgets/hildon-date-editor.c	2007-06-02 09:40:24.000000000 -0600
+@@ -1081,7 +1081,7 @@
+     /* Show error message in case the key pressed is not allowed 
+        (only digits and control characters are allowed )*/
+     if (!g_unichar_isdigit(event->keyval) && !(event->keyval & 0xF000)) {
+-        g_signal_emit(ed, date_editor_signals[DATE_ERROR], 0, INVALID_CHAR, &r);        
++        g_signal_emit(ed, date_editor_signals[DATE_ERROR], 0, INVALID_DATE_CHAR, &r);        
+         return TRUE;
+     }
+ 
+@@ -1167,7 +1167,7 @@
+       gtk_infoprintf(NULL, _("ckct_ib_set_a_value_within_range"),
+                      priv->min_year, priv->max_year);
+       break;
+-    case INVALID_CHAR:
++    case INVALID_DATE_CHAR:
+       gtk_infoprint(NULL, c_("ckct_ib_illegal_character"));
+       break;
+     case INVALID_DATE:
+Only in hildon-libs-0.14.11/hildon-widgets: hildon-date-editor.c~
+diff -ur -ur hildon-libs-0.14.11-o/hildon-widgets/hildon-date-editor.h hildon-libs-0.14.11/hildon-widgets/hildon-date-editor.h
+--- hildon-libs-0.14.11-o/hildon-widgets/hildon-date-editor.h	2006-11-24 02:00:27.000000000 -0700
++++ hildon-libs-0.14.11/hildon-widgets/hildon-date-editor.h	2007-06-02 09:40:30.000000000 -0600
+@@ -74,7 +74,7 @@
+   EMPTY_MONTH,
+   EMPTY_YEAR,
+   INVALID_DATE,
+-  INVALID_CHAR
++  INVALID_DATE_CHAR
+     
+ }HildonDateEditorErrorType;
+ 
+Only in hildon-libs-0.14.11/hildon-widgets: hildon-date-editor.h~
+diff -ur -ur hildon-libs-0.14.11-o/hildon-widgets/hildon-time-editor.c hildon-libs-0.14.11/hildon-widgets/hildon-time-editor.c
+--- hildon-libs-0.14.11-o/hildon-widgets/hildon-time-editor.c	2006-11-24 02:00:26.000000000 -0700
++++ hildon-libs-0.14.11/hildon-widgets/hildon-time-editor.c	2007-06-02 09:40:37.000000000 -0600
+@@ -1731,7 +1731,7 @@
+     /* Show error message in case the key pressed is not allowed 
+        (only digits and control characters are allowed )*/
+     if (!g_unichar_isdigit(event->keyval) && !(event->keyval & 0xF000)) {
+-        g_signal_emit(editor, time_editor_signals[TIME_ERROR], 0, INVALID_CHAR, &r);
++        g_signal_emit(editor, time_editor_signals[TIME_ERROR], 0, INVALID_TIME_CHAR, &r);
+         hildon_banner_show_information(widget, NULL, c_("ckct_ib_illegal_character"));
+         return TRUE;
+     }
+Only in hildon-libs-0.14.11/hildon-widgets: hildon-time-editor.c~
+diff -ur -ur hildon-libs-0.14.11-o/hildon-widgets/hildon-time-editor.h hildon-libs-0.14.11/hildon-widgets/hildon-time-editor.h
+--- hildon-libs-0.14.11-o/hildon-widgets/hildon-time-editor.h	2006-11-24 02:00:26.000000000 -0700
++++ hildon-libs-0.14.11/hildon-widgets/hildon-time-editor.h	2007-06-02 09:40:51.000000000 -0600
+@@ -53,7 +53,7 @@
+   MIN_DUR,
+   MAX_DUR,
+   INVALID_TIME,
+-  INVALID_CHAR
++  INVALID_TIME_CHAR
+ } HildonTimeEditorErrorType;
+ 
+ typedef struct _HildonTimeEditor      HildonTimeEditor;
+Only in hildon-libs-0.14.11/hildon-widgets: hildon-time-editor.h~

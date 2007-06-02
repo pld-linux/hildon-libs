@@ -1,20 +1,22 @@
 #
-#	TODO: possible patch to GTK/wait for upstream to support tap and hold 
+# TODO: possible patch to GTK/wait for upstream to support tap and hold 
 #
 Summary:	Maemo hildon widgets library
+Summary(pl.UTF-8):	Biblioteka widgetów hildon dla platformy Maemo
 Name:		hildon-libs
 Version:	0.14.11
 Release:	1
 License:	LGPL
-Group:		Development/Libraries
+Group:		Libraries
 Source0:	http://repository.maemo.org/pool/bora/free/source/%{name}_%{version}-1.tar.gz
 # Source0-md5:	7e16952584f06342c51745eeccd76927
-Patch0:	%{name}-enumfix.patch
+Patch0:		%{name}-enumfix.patch
 URL:		http://maemo.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	glib2-devel
 BuildRequires:	gtk+2-devel
+BuildRequires:	gtk-doc
 BuildRequires:	intltool
 BuildRequires:	libmatchbox1-devel
 BuildRequires:	libtool
@@ -23,12 +25,20 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %description
 Hildon widgets library for the Maemo platform.
 
+%description -l pl.UTF-8
+Biblioteka widgetów hildon dla platformy Maemo.
+
 %package devel
-Summary:	Header files for hildon-libs
+Summary:	Header files for hildon library
+Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki hildon
 Group:		Development/Libraries
+Requires:	%{name} = %{version}-%{release}
 
 %description devel
-Header files for hildon.
+Header files for hildon library.
+
+%description devel -l pl.UTF-8
+Pliki nagłówkowe biblioteki hildon.
 
 %package static
 Summary:	Static hildon library
@@ -72,22 +82,23 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README
-%{_sysconfdir}/dbus-1/system.d/hildon.conf
-%dir %{_sysconfdir}/hildon
-%{_sysconfdir}/hildon/sessionbus-hildon.conf
 %attr(755,root,root) %{_bindir}/dbus-launch-systembus.sh
 %attr(755,root,root) %{_bindir}/dbus-launch.sh
 %attr(755,root,root) %{_bindir}/osso-date
-%attr(755,root,root)    %{_libdir}/hildon.so.1.3.0
+%attr(755,root,root) %{_libdir}/hildon.so.*.*.*
+%{_sysconfdir}/dbus-1/system.d/hildon.conf
+%dir %{_sysconfdir}/hildon
+%{_sysconfdir}/hildon/sessionbus-hildon.conf
 
 %files devel
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/hildon.so
 %{_libdir}/hildon.la
-%{_pkgconfigdir}/hildon.pc
 %{_includedir}/hildon.h
 %{_includedir}/log-functions.h
 %{_includedir}/osso-log.h
 %{_includedir}/osso-mem.h
+%{_pkgconfigdir}/hildon.pc
 
 %files static
 %defattr(644,root,root,755)
